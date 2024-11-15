@@ -1,0 +1,23 @@
+services:
+  build:
+    platform: linux/amd64
+    build:
+      args:
+        GIT_USER_EMAIL: ${GIT_USER_EMAIL}
+        GIT_USER_NAME: ${GIT_USER_NAME}
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: build
+    env_file:
+      - .env
+    volumes:
+      - android:/home/user/android
+    working_dir: /home/user/android
+    stdin_open: true
+    tty: true
+    command: sleep infinity
+    restart: unless-stopped
+    privileged: true
+
+volumes:
+  android:
