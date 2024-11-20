@@ -11,7 +11,7 @@ services:
     env_file:
       - .env
     volumes:
-      - source:/home/user/workdir
+      - volume:/home/user/workdir
     working_dir: /home/user/workdir/source
     stdin_open: true
     tty: true
@@ -20,4 +20,10 @@ services:
     privileged: true
 
 volumes:
-  source:
+  volume:
+    driver: local
+# Use bind mount only with case-sensitive file systems
+#    driver_opts:
+#      type: none
+#      device: ./volume
+#      o: bind
