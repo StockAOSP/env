@@ -1,5 +1,5 @@
 services:
-  build:
+  builder:
     platform: linux/amd64
     build:
       args:
@@ -7,12 +7,12 @@ services:
         GIT_USER_NAME: ${GIT_USER_NAME}
       context: .
       dockerfile: ./Dockerfile
-    container_name: build
+    container_name: builder
     env_file:
       - .env
     volumes:
-      - android:/home/user/android
-    working_dir: /home/user/android
+      - source:/home/user/workdir
+    working_dir: /home/user/workdir/source
     stdin_open: true
     tty: true
     command: sleep infinity
@@ -20,4 +20,4 @@ services:
     privileged: true
 
 volumes:
-  android:
+  source:
