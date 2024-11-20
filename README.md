@@ -11,7 +11,7 @@
 
 > docker exec -it builder bash
 
-## Build StockOs
+## Build SAOSP
 
 1. Initialize source repository 
 
