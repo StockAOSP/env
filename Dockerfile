@@ -34,47 +34,47 @@ ENV CCACHE_DIR=$MOUNT_DIR/ccache
 # Update the package list and install essential build dependencies
 # `apt-get clean` ensures no unnecessary files remain, reducing image size
 RUN apt-get update && apt-get install -y \
-    android-sdk-platform-tools-common \ # Tools for Android development
-    android-tools-adb \                # ADB (Android Debug Bridge) tool
-    android-tools-fastboot \           # Fastboot tool for Android
-    bash \                             # Essential shell
-    bc \                               # Basic calculator for scripts
-    bison \                            # Parser generator
-    bsdmainutils \                     # Common BSD utilities
-    build-essential \                  # Compilation tools
-    ccache \                           # Compiler cache for speeding up builds
-    curl \                             # Command-line tool for transferring data
-    fakeroot \                         # Tool for creating file archives
-    flex \                             # Lexical analyzer generator
-    g++-multilib \                     # 32-bit and 64-bit GCC support
-    gcc-multilib \                     # GCC with multilib support
-    git \                              # Version control system
-    git-lfs \                          # Git Large File Storage
-    gnupg \                            # Encryption utility for signing keys
-    gperf \                            # Hash function generator
-    imagemagick \                      # Image manipulation tools
-    lib32readline-dev \                # 32-bit readline library
-    lib32z1-dev \                      # 32-bit zlib compression library
-    libelf-dev \                       # ELF object file support
-    liblz4-tool \                      # LZ4 compression tool
-    libsdl1.2-dev \                    # SDL library for development
-    libssl-dev \                       # OpenSSL development libraries
-    libxml2 \                          # XML parsing library
-    libxml2-utils \                    # XML utilities
-    lzop \                             # Lempel-Ziv-Oberhumer compression tool
-    nano \                             # Simple text editor
-    openssh-client \                   # SSH client tools
-    pngcrush \                         # PNG optimization tool
-    python3 \                          # Python 3 interpreter
-    rsync \                            # File synchronization tool
-    schedtool \                        # Scheduling priority tool
-    squashfs-tools \                   # Tool for creating SquashFS filesystems
-    sudo \                             # Superuser access management
-    unzip \                            # Tool for extracting ZIP archives
-    xsltproc \                         # XSLT processor
-    zip \                              # ZIP compression tool
-    zlib1g-dev \                       # Zlib compression library development files
-    && apt-get clean                   # Remove temporary package files
+    android-sdk-platform-tools-common \
+    android-tools-adb \
+    android-tools-fastboot \
+    bash \
+    bc \
+    bison \
+    bsdmainutils \
+    build-essential \
+    ccache \
+    curl \
+    fakeroot \
+    flex \
+    g++-multilib \
+    gcc-multilib \
+    git \
+    git-lfs \
+    gnupg \
+    gperf \
+    imagemagick \
+    lib32readline-dev \
+    lib32z1-dev \
+    libelf-dev \
+    liblz4-tool \
+    libsdl1.2-dev \
+    libssl-dev \
+    libxml2 \
+    libxml2-utils \
+    lzop \
+    nano \
+    openssh-client \
+    pngcrush \
+    python3 \
+    rsync \
+    schedtool \
+    squashfs-tools \
+    sudo \
+    unzip \
+    xsltproc \
+    zip \
+    zlib1g-dev \
+    && apt-get clean
 
 # Download the 'repo' binary (used for Android source code management) and make it executable
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo \
@@ -87,13 +87,13 @@ RUN groupadd --gid $GID --force $USERNAME \
 # Switch to the new user
 USER $USERNAME
 
-# Configure Git using build-time arguments for user email and name
-RUN git config --global user.email "$GIT_USER_EMAIL" \
-    && git config --global user.name "$GIT_USER_NAME" \
-    && git lfs install \                      # Initialize Git LFS
-    && git config --global trailer.changeid.key "Change-Id"  # Configure Git trailers
+# Configure Git
+RUN git config --global user.email "$GIT_USER_EMAIL"  \
+    && git config --global user.name "$GIT_USER_NAME"  \
+    && git lfs install  \
+    && git config --global trailer.changeid.key "Change-Id"
 
-# Create directories for source code and ccache, setting appropriate permissions
+# Create directories for source code and ccache
 RUN mkdir -p "$SOURCE_DIR" \
     && chmod -R ug+s "$SOURCE_DIR" \
     && mkdir -p "$CCACHE_DIR" \
