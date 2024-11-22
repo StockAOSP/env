@@ -1,0 +1,7 @@
+{
+  "name": "Android Build Environment",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "builder",
+}
