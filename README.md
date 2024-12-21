@@ -1,7 +1,8 @@
 ## Setup env
 
 1. Copy `.env.example` to `.env` and replace variables.
-2. Build image and run docker container.
+2. Add SSH keys to .shh folder (Optional)
+3. Build image and run docker container.
 
 > docker compose up -d --build
 
@@ -11,7 +12,7 @@
 
 > docker exec -it env bash
 
-## Build SAOSP
+## Build
 
 1. Initialize source repository 
 

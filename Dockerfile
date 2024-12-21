@@ -86,6 +86,11 @@ RUN groupadd --gid $GID --force $USERNAME \
 
 # Switch to the new user
 USER $USERNAME
+# Create the .ssh directory
+RUN mkdir -p /home/ubuntu/.ssh
+
+# Copy the .ssh directory
+COPY .ssh /home/ubuntu/.ssh
 
 # Configure Git
 RUN git config --global user.email "$GIT_USER_EMAIL"  \
