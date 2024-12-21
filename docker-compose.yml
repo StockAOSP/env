@@ -1,5 +1,5 @@
 services:
-  builder:
+  env:
     platform: linux/amd64
     build:
       args:
@@ -7,7 +7,7 @@ services:
         GIT_USER_NAME: ${GIT_USER_NAME}
       context: .
       dockerfile: ./Dockerfile
-    container_name: builder
+    container_name: env
     env_file:
       - .env
     volumes:

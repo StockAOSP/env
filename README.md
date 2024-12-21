@@ -9,7 +9,7 @@
 
 1. Opens an interactive Bash shell in a container.
 
-> docker exec -it builder bash
+> docker exec -it env bash
 
 ## Build SAOSP
 
