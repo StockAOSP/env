@@ -11,8 +11,9 @@ services:
     env_file:
       - .env
     volumes:
-      - volume:/home/user/workdir
-    working_dir: /home/user/workdir/source
+      - volume:/home/ubuntu/workdir
+    user: "ubuntu"
+    working_dir: /home/ubuntu/workdir/source
     stdin_open: true
     tty: true
     command: sleep infinity
@@ -22,8 +23,7 @@ services:
 volumes:
   volume:
     driver: local
-# Use bind mount only with case-sensitive file systems
-#    driver_opts:
-#      type: none
-#      device: ./volume
-#      o: bind
+    # driver_opts:
+    #   type: none
+    #   device: ./volume
+    #   o: bind

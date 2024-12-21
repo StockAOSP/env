@@ -14,13 +14,8 @@ ENV LC_ALL=C
 ENV CPU_SSE42=false
 ENV WITH_DEXPREOPT=false
 
-# Define the default user and group
-ENV USERNAME=user
-ENV UID=1000
-ENV GID=1000
-
 # Define important paths
-ENV USER_DIR=/home/$USERNAME
+ENV USER_DIR=/home/ubuntu
 ENV MOUNT_DIR=$USER_DIR/workdir
 ENV SOURCE_DIR=$MOUNT_DIR/source
 
@@ -80,29 +75,24 @@ RUN apt-get update && apt-get install -y \
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo \
     && chmod a+x /usr/bin/repo
 
-# Create a new user with specified UID and GID
-RUN groupadd --gid $GID --force $USERNAME \
-    && useradd --uid $UID --gid $GID --non-unique --create-home $USERNAME
-
 # Switch to the new user
-USER $USERNAME
+USER ubuntu
+
 # Create the .ssh directory
 RUN mkdir -p /home/ubuntu/.ssh
 
 # Copy the .ssh directory
 COPY .ssh /home/ubuntu/.ssh
 
+# Create directories for source code and ccache
+RUN mkdir -p "$SOURCE_DIR" \
+    && mkdir -p "$CCACHE_DIR"
+
 # Configure Git
 RUN git config --global user.email "$GIT_USER_EMAIL"  \
     && git config --global user.name "$GIT_USER_NAME"  \
     && git lfs install  \
     && git config --global trailer.changeid.key "Change-Id"
-
-# Create directories for source code and ccache
-RUN mkdir -p "$SOURCE_DIR" \
-    && chmod -R ug+s "$SOURCE_DIR" \
-    && mkdir -p "$CCACHE_DIR" \
-    && chmod -R ug+s "$CCACHE_DIR"
 
 # Set the default working directory
 WORKDIR $SOURCE_DIR
