@@ -23,7 +23,7 @@ services:
 volumes:
   volume:
     driver: local
-    # driver_opts:
-    #   type: none
-    #   device: ./volume
-    #   o: bind
+    driver_opts:
+      type: none
+      device: ./volume
+      o: bind
