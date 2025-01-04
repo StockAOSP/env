@@ -16,7 +16,7 @@
 
 1. Initialize source repository 
 
-> repo init -u https://github.com/LineageOS/android.git -b lineage-21.0 --git-lfs
+> repo init -u https://github.com/LineageOS/android.git -b lineage-22.1 --git-lfs --no-clone-bundle
 
 2. Download the source code
 
