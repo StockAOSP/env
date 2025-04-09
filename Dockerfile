@@ -75,14 +75,20 @@ RUN apt-get update && apt-get install -y \
 RUN curl -s https://storage.googleapis.com/git-repo-downloads/repo > /usr/bin/repo \
     && chmod a+x /usr/bin/repo
 
-# Switch to the new user
-USER ubuntu
-
 # Create the .ssh directory
 RUN mkdir -p /home/ubuntu/.ssh
 
 # Copy the .ssh directory
 COPY .ssh /home/ubuntu/.ssh
+
+# Set correct permissions on SSH keys
+RUN chmod 700 /home/ubuntu/.ssh && \
+    chmod 600 /home/ubuntu/.ssh/* && \
+    chmod 644 /home/ubuntu/.ssh/*.pub && \
+    chown -R ubuntu:ubuntu /home/ubuntu/.ssh
+
+# Switch to the new user
+USER ubuntu
 
 # Create directories for source code and ccache
 RUN mkdir -p "$SOURCE_DIR" \
